@@ -264,7 +264,7 @@
                               <a
                               class="dropdown-item fade-page" href="../elements-dropdowns-grid.html">Dropdowns Grid</a><a class="dropdown-item fade-page" href="../elements-footers.html">Footers</a><a class="dropdown-item fade-page" href="../elements-navbars.html">Navigation</a><a class="dropdown-item fade-page" href="../elements-tooltips.html">Tooltips</a>
                                 <a
-                                class="dropdown-item fade-page" href="../elements-widgets.html">Widgets</a>
+                                class="dropdown-item fade-page" href="../elements-toasts.html">Toasts</a><a class="dropdown-item fade-page" href="../elements-widgets.html">Widgets</a>
                           </div>
                         </div>
                         <div class="col-lg col-md-4 mb-3 mb-lg-0">
@@ -381,6 +381,18 @@
 
                 <li class="nav-item">
                   <a href="changelog.html" class="nav-link text-small">Changelog </a>
+
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="mb-3 mb-md-4">
+              <h6 class="mb-2">How To</h6>
+              <ul class="nav flex-column">
+
+                <li class="nav-item">
+                  <a href="how-to-edit-color-scheme.html" class="nav-link text-small">Edit Color Scheme </a>
 
                 </li>
 
@@ -760,11 +772,11 @@ mrMaps,
                 </h3>
                 <div>
                   <p>To set up a map, create a <code>&lt;div&gt;</code> with data attribute <code>data-maps-api-key</code>. Insert your Google maps API key as the value.</p>
-                  <p>The main <code>&lt;div&gt;</code> requires a <code>min-height</code> to be set, so add a height <a href="css-utility-classes.html" target="_blank">utility class</a> like so: <code>class=&quot;50&quot;</code>.</p>
+                  <p>The main <code>&lt;div&gt;</code> requires a <code>min-height</code> to be set, so add a height <a href="css-utility-classes.html" target="_blank">utility class</a> like so: <code>class=&quot;min-vh-50&quot;</code>.</p>
                   <p>For easy map positioning, provide an address for the center of the map in the <code>data-address</code> attribute on the same <code>&lt;div&gt;</code>.</p>
                   <p>Add an empty <code>&lt;div&gt;</code> with class <code>map-marker</code> to add a marker to the map. Add the <code>data-address</code> attribute and provide an address as the value.</p>
                   <p>This will create a Map, center it at the provided address and add a marker at the specified address. This is the most basic functionality and will use the default marker image at <code>assets/img/map-marker.png</code>.</p>
-                  <pre><code class="language-html">&lt;div class=&quot;50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot; data-map-zoom=&quot;14&quot;&gt;
+                  <pre><code class="language-html">&lt;div class=&quot;min-vh-50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot; data-map-zoom=&quot;14&quot;&gt;
   &lt;div class=&quot;map-marker&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn, New York&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
                   <p>Map elements that you include in your HTML are &#39;digested&#39; and transformed into Google Map instances upon page load.</p>
@@ -783,11 +795,11 @@ mrMaps,
                   <p>Add <code>data-address</code> to the map&#39;s containing <code>&lt;div&gt;</code> and specify your desired center address in a format that is readable by Google Maps. Provide as much detail as possible for the Geocoder to pinpoint the address.
                     Try the address in the Google Maps app on your PC or mobile device. If the Google Maps app finds the address accurately, you can safely use the same address string in your <code>data-address</code> attribute.</p>
                   <p>Using <code>data-address</code> will incur API fees as each individual call to the Google Maps Geocoder is itemised on your bill.</p>
-                  <pre><code class="language-html">&lt;div class=&quot;50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot;&gt;&lt;/div&gt;</code></pre>
+                  <pre><code class="language-html">&lt;div class=&quot;min-vh-50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot;&gt;&lt;/div&gt;</code></pre>
                   <h5>Using latitude / longitude</h5>
                   <p>Add <code>data-latlong</code> to the map&#39;s containing <code>&lt;div&gt;</code> and specify the latitude and longitude of the desired location in comma-separated format.</p>
                   <p>You can find the latitude / longitude of an address by using a service such as <a href="https://www.latlong.net" target="_blank">LatLong.net</a>.</p>
-                  <pre><code class="language-html">&lt;div class=&quot;50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-latlong=&quot;40.667412,-73.947960&quot;&gt;&lt;/div&gt;</code></pre>
+                  <pre><code class="language-html">&lt;div class=&quot;min-vh-50&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-latlong=&quot;40.667412,-73.947960&quot;&gt;&lt;/div&gt;</code></pre>
 
                 </div>
               </article>
@@ -836,7 +848,7 @@ mrMaps,
                     </tbody>
                   </table>
                   <p>This example shows setting the zoom level to <code>20</code>:</p>
-                  <pre><code class="language-html">&lt;div class=&quot;50&quot;
+                  <pre><code class="language-html">&lt;div class=&quot;min-vh-50&quot;
      data-map-zoom=&quot;20&quot;
      data-zoom-controls=&quot;BOTTOM_RIGHT&quot; 
      data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; 
@@ -934,7 +946,7 @@ mrMaps,
   + BL    BC    BR + 
   +----------------+ </code></pre>
                   <p>For example, to make the zoom controls appear in the bottom, right corner of the map, use the following:</p>
-                  <pre><code class="language-html">&lt;div class=&quot;50&quot; data-zoom-controls=&quot;BOTTOM_RIGHT&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot; data-map-zoom=&quot;14&quot;&gt;&lt;/div&gt;</code></pre>
+                  <pre><code class="language-html">&lt;div class=&quot;min-vh-50&quot; data-zoom-controls=&quot;BOTTOM_RIGHT&quot; data-maps-api-key=&quot;INSERT_YOUR_GOOGLE_MAPS_API_KEY_HERE&quot; data-address=&quot;389 Greenpoint Ave, Crown Heights, Brooklyn New York&quot; data-map-zoom=&quot;14&quot;&gt;&lt;/div&gt;</code></pre>
                   <p>More detail on other positioning strings can be found at the <a href="https://developers.google.com/maps/documentation/javascript/controls#ControlPositioning" target="_blank">Google Maps JS API Documentation</a>.</p>
 
                 </div>
@@ -1420,7 +1432,7 @@ export default mrMapStyle;
     <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
     <script type="text/javascript" src="../assets/js/scrollMonitor.js"></script>
     <!-- Smooth scroll (animation to links in-page)-->
-    <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.js"></script>
+    <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.min.js"></script>
     <!-- TwitterFetcher (displays a feed of tweets from a specified account)-->
     <script type="text/javascript" src="../assets/js/twitterFetcher_min.js"></script>
     <!-- Typed text (animated typing effect)-->

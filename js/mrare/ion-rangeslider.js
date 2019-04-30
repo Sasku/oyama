@@ -48,6 +48,10 @@ const mrIonRangeSlider = (($) => {
     TEXT: 'text',
   };
 
+  const Options = {
+    SKIN_DEFAULT: 'theme',
+  };
+
   /**
    * ------------------------------------------------------------------------
    * Class Definition
@@ -86,6 +90,7 @@ const mrIonRangeSlider = (($) => {
       }
 
       $(this.element).ionRangeSlider({
+        skin: Options.SKIN_DEFAULT,
         onStart: mrUtil.getFuncFromString(options.onStart),
         onFinish: mrUtil.getFuncFromString(options.onFinish),
         onChange: this.handleChange,

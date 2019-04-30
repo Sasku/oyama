@@ -4,7 +4,8 @@ const autoprefixer = require('gulp-autoprefixer'),
   cleanCSS = require('gulp-clean-css'),
   copyDepsYaml = './copydeps.yml',
   cssImporter = require('node-sass-css-importer')({
-    import_paths: ['./scss'] }),
+    import_paths: ['./scss']
+  }),
   del = require('del'),
   eslint = require('gulp-eslint'),
   gulp = require('gulp'),
@@ -15,8 +16,8 @@ const autoprefixer = require('gulp-autoprefixer'),
   rename = require('gulp-rename'),
   rollup = require('rollup'),
   rollupBabel = require('rollup-plugin-babel'),
-  rollupCommonjs  = require('rollup-plugin-commonjs'),
-  rollupResolve   = require('rollup-plugin-node-resolve'),
+  rollupCommonjs = require('rollup-plugin-commonjs'),
+  rollupResolve = require('rollup-plugin-node-resolve'),
   rollupUglify = require('rollup-plugin-uglify').uglify,
   sass = require('gulp-sass'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -24,8 +25,37 @@ const autoprefixer = require('gulp-autoprefixer'),
   year = new Date().getFullYear(),
   yaml = require('yamljs');
 
-  let copyDeps = yaml.load(copyDepsYaml);
-  let theme = yaml.load(themeYaml);
+let copyDeps = yaml.load(copyDepsYaml);
+let theme = yaml.load(themeYaml);
+
+const babelConfig = {
+  presets: [
+    [
+      '@babel/env',
+      {
+        loose: true,
+        modules: false,
+        exclude: ['transform-typeof-symbol']
+      }
+    ]
+  ],
+  plugins: [
+    '@babel/plugin-proposal-object-rest-spread'
+  ],
+  env: {
+    test: {
+      plugins: ['istanbul']
+    }
+  },
+  exclude: 'node_modules/**', // Only transpile our source code
+  externalHelpersWhitelist: [ // Include only required helpers
+    'defineProperties',
+    'createClass',
+    'inheritsLoose',
+    'defineProperty',
+    'objectSpread'
+  ],
+};
 
 getPaths = () => {
   return {
@@ -122,26 +152,36 @@ gulp.task('clean:dist', function (done) {
 
 // Copy html files to dist
 gulp.task('html', function () {
-  return gulp.src(paths.pages.all, {base: paths.pages.folder})
+  return gulp.src(paths.pages.all, {
+      base: paths.pages.folder
+    })
     .pipe(newer(paths.dist.folder))
     .pipe(gulp.dest(paths.dist.folder))
-    .pipe(reload({ stream:true }));
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 gulp.task('sass', function () {
   return gulp.src(paths.scss.themeScss)
     .pipe(sourcemaps.init())
-    .pipe(sass({importer: [cssImporter] }).on('error', sass.logError))
+    .pipe(sass({
+      importer: [cssImporter]
+    }).on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.dist.css))
-    .pipe(browserSync.stream({match: "**/theme*.css"}));
+    .pipe(browserSync.stream({
+      match: "**/theme*.css"
+    }));
 });
 
 gulp.task('sass-min', function () {
   return gulp.src(paths.scss.themeScss)
     .pipe(sourcemaps.init())
-    .pipe(sass({importer: [cssImporter] }).on('error', sass.logError))
+    .pipe(sass({
+      importer: [cssImporter]
+    }).on('error', sass.logError))
     .pipe(cleanCSS({
       compatibility: 'ie9'
     }))
@@ -151,46 +191,43 @@ gulp.task('sass-min', function () {
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.dist.css))
-    .pipe(browserSync.stream({match: "**/theme*.css"}));
+    .pipe(browserSync.stream({
+      match: "**/theme*.css"
+    }));
 });
 
 gulp.task('bootstrapjs', async (done) => {
-	let fileDest  = 'bootstrap.js';
-	const banner = `/*!
+  let fileDest = 'bootstrap.js';
+  const banner = `/*!
   * Bootstrap v${theme.bootstrap_version}
   * Copyright 2011-${year} The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */`;
-	const external = ['jquery', 'popper.js'];
-	const plugins = [
-		rollupBabel({
-				exclude: 'node_modules/**', // Only transpile our source code
-				externalHelpersWhitelist: [ // Include only required helpers
-				'defineProperties',
-				'createClass',
-				'inheritsLoose',
-				'defineProperty',
-				'objectSpread'
-				]
-		}),
-	  rollupUglify({output: {comments: "/^!/"}}),
-	];
-	const globals = {
-		jquery: 'jQuery', // Ensure we use jQuery which is always available even in noConflict mode
-		'popper.js': 'Popper'
-	};
+  const external = ['jquery', 'popper.js'];
+  const plugins = [
+    rollupBabel(babelConfig),
+    rollupUglify({
+      output: {
+        comments: "/^!/"
+      }
+    }),
+  ];
+  const globals = {
+    jquery: 'jQuery', // Ensure we use jQuery which is always available even in noConflict mode
+    'popper.js': 'Popper'
+  };
 
-	const bundle = await rollup.rollup({
-		input: paths.js.bootstrap.index,
-		external,
-		plugins
-	});
+  const bundle = await rollup.rollup({
+    input: paths.js.bootstrap.index,
+    external,
+    plugins
+  });
 
-	await bundle.write({
-		file: path.resolve(__dirname, `./${paths.dist.js}${path.sep}${fileDest}`),
-		banner,
-		globals,
-		format: 'umd',
+  await bundle.write({
+    file: path.resolve(__dirname, `./${paths.dist.js}${path.sep}${fileDest}`),
+    banner,
+    globals,
+    format: 'umd',
     name: 'bootstrap',
     sourcemap: true,
   });
@@ -199,49 +236,52 @@ gulp.task('bootstrapjs', async (done) => {
   done();
 });
 
-gulp.task('mrarejs', async (done) => { 
+gulp.task('mrarejs', async (done) => {
   gulp.src(paths.js.mrare.all)
-      .pipe(eslint())
-      .pipe(eslint.format());
+    .pipe(eslint())
+    .pipe(eslint.format());
 
-  let fileDest  = 'theme.js';
-	const banner = `/*!
+  let fileDest = 'theme.js';
+  const banner = `/*!
   * ${theme.name}
   * Copyright 2018-${year} Medium Rare (${theme.purchase_link})
   */`;
-	const external = [...theme.scripts.external];
-	const plugins = [
+  const external = [...theme.scripts.external];
+  const plugins = [
     rollupCommonjs(),
     rollupResolve({
       jsnext: true,
       main: true,
       browser: true,
     }),
-    rollupBabel({
-				exclude: 'node_modules/**', // Only transpile our source code
-				externalHelpersWhitelist: [ // Include only required helpers
-				'defineProperties',
-				'createClass',
-				'inheritsLoose',
-				'defineProperty',
-				'objectSpread'
-				]
-		}),
-	  theme.minify_scripts === true ? rollupUglify({output: {comments: "/^!/"}}) : null,
-	];
-	const globals = theme.scripts.globals;
+    rollupBabel(babelConfig),
+    theme.minify_scripts === true ? rollupUglify({
+      output: {
+        comments: "/^!/"
+      }
+    }) : null,
+  ];
+  const globals = theme.scripts.globals;
 
-	const bundle = await rollup.rollup({
-		input: paths.js.mrare.index,
-		external,
-		plugins
+  const bundle = await rollup.rollup({
+    input: paths.js.mrare.index,
+    external,
+    plugins,
+    onwarn: function (warning) {
+      // Skip certain warnings
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return;
+      }
+      // console.warn everything else
+      console.warn(warning.message);
+    }
   });
-  
-	await bundle.write({
-		file: path.resolve(__dirname, `./${paths.dist.js}${path.sep}${fileDest}`),
-		banner,
+
+  await bundle.write({
+    file: path.resolve(__dirname, `./${paths.dist.js}${path.sep}${fileDest}`),
+    banner,
     globals,
-		format: 'umd',
+    format: 'umd',
     name: 'theme',
     sourcemap: true,
     sourcemapFile: path.resolve(__dirname, `./${paths.dist.js}${path.sep}${fileDest}.map`),
@@ -253,24 +293,30 @@ gulp.task('mrarejs', async (done) => {
 
 // Assets
 gulp.task('copy-assets', function () {
-  return gulp.src(paths.assets.all, {base: paths.assets.folder})
+  return gulp.src(paths.assets.all, {
+      base: paths.assets.folder
+    })
     .pipe(newer(paths.dist.assets))
     .pipe(gulp.dest(paths.dist.assets))
-    .pipe(reload({ stream:true }));
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 gulp.task('deps', async (done) => {
-  await paths.copyDependencies.forEach(function(filesObj){
-      let files;
-      if(typeof filesObj.files == 'object'){
-          files = filesObj.files.map( (file) => { return `${filesObj.from}/${file}`; });
-      }else{
-          files = `${filesObj.from}/${filesObj.files}`;
-      }
-      
-      gulp.src(files)
-          .pipe(newer(filesObj.to))
-          .pipe(gulp.dest(filesObj.to));
+  await paths.copyDependencies.forEach(function (filesObj) {
+    let files;
+    if (typeof filesObj.files == 'object') {
+      files = filesObj.files.map((file) => {
+        return `${filesObj.from}/${file}`;
+      });
+    } else {
+      files = `${filesObj.from}/${filesObj.files}`;
+    }
+
+    gulp.src(files)
+      .pipe(newer(filesObj.to))
+      .pipe(gulp.dest(filesObj.to));
   });
   done();
 });
@@ -290,39 +336,50 @@ gulp.task('watch', function (done) {
 
   // PAGES
   // Watch only .html pages as they can be recompiled individually
-  gulp.watch([paths.pages.html], {cwd: './'}, gulp.series('html', function reload(done){reload(); done();}));
+  gulp.watch([paths.pages.html], {
+    cwd: './'
+  }, gulp.series('html', function reloadPage(done) {
+    reload();
+    done();
+  }));
 
   // SCSS
   // Any .scss file change will trigger a sass rebuild
-  gulp.watch([paths.scss.all], {cwd: './'}, gulp.series('sass'));
+  gulp.watch([paths.scss.all], {
+    cwd: './'
+  }, gulp.series('sass'));
 
   // JS
   // Rebuild bootstrap js if files change
-  gulp.watch([...paths.js.bootstrap.all], {cwd: './'}, gulp.series('bootstrapjs'));
+  gulp.watch([...paths.js.bootstrap.all], {
+    cwd: './'
+  }, gulp.series('bootstrapjs'));
 
   // Rebuild mrare js if files change
-  gulp.watch([paths.js.mrare.all], {cwd: './'}, gulp.series('mrarejs'));
+  gulp.watch([paths.js.mrare.all], {
+    cwd: './'
+  }, gulp.series('mrarejs'));
 
   // Rebuild mrare js if files change
   const assetsWatcher = gulp.watch([paths.assets.all, ...paths.assets.allFolders], {
     cwd: './'
   }, gulp.series('copy-assets'));
 
-  assetsWatcher.on('change', function(path) {
-      console.log('File ' + path + ' was changed');
+  assetsWatcher.on('change', function (path) {
+    console.log('File ' + path + ' was changed');
   });
-    
-  assetsWatcher.on('unlink', function(path) {
+
+  assetsWatcher.on('unlink', function (path) {
     const changedDistFile = path.resolve(paths.dist.assets, path.relative(path.resolve(paths.assets.folder), event.path));
     console.log('File ' + path + ' was removed');
     del.sync(path);
   });
- 
+
   done();
   // End watch task
-  
+
 });
 
 gulp.task('default', gulp.series('clean:dist', 'copy-assets', gulp.series('html', 'sass', 'sass-min', 'bootstrapjs', 'mrarejs'), gulp.series('serve', 'watch')));
 
-gulp.task('build', gulp.series('clean:dist', 'copy-assets', gulp.series('html','sass', 'sass-min', 'bootstrapjs', 'mrarejs')));
+gulp.task('build', gulp.series('clean:dist', 'copy-assets', gulp.series('html', 'sass', 'sass-min', 'bootstrapjs', 'mrarejs')));

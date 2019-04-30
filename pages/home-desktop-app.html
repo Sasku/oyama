@@ -265,7 +265,7 @@
                             href="elements-breadcrumbs.html">Breadcrumbs</a><a class="dropdown-item fade-page" href="elements-buttons.html">Buttons</a><a class="dropdown-item fade-page" href="elements-cards.html">Cards</a><a class="dropdown-item fade-page"
                             href="elements-dropdowns-bootstrap.html">Dropdowns Bootstrap</a><a class="dropdown-item fade-page" href="elements-dropdowns-grid.html">Dropdowns Grid</a><a class="dropdown-item fade-page" href="elements-footers.html">Footers</a>
                             <a
-                            class="dropdown-item fade-page" href="elements-navbars.html">Navigation</a><a class="dropdown-item fade-page" href="elements-tooltips.html">Tooltips</a><a class="dropdown-item fade-page" href="elements-widgets.html">Widgets</a>
+                            class="dropdown-item fade-page" href="elements-navbars.html">Navigation</a><a class="dropdown-item fade-page" href="elements-tooltips.html">Tooltips</a><a class="dropdown-item fade-page" href="elements-toasts.html">Toasts</a><a class="dropdown-item fade-page" href="elements-widgets.html">Widgets</a>
                           </div>
                         </div>
                         <div class="col-lg col-md-4 mb-3 mb-lg-0">
@@ -353,8 +353,8 @@
           <div class="col-xl-7 col-lg-8 col-md-9">
             <h1 class="display-3">Find the pulse.</h1>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-            <div class="d-flex justify-content-center mt-4">
-              <a href="#" class="btn btn-lg btn-primary mx-2">Try for Free</a>
+            <div class="d-flex flex-column flex-sm-row justify-content-center mt-4">
+              <a href="#" class="btn btn-lg btn-primary mx-2 mb-2 mb-sm-0">Try for Free</a>
               <a href="#" class="btn btn-lg btn-outline-primary mx-2">
                 <span>Watch Video</span>
               </a>
@@ -558,7 +558,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-primary-3 text-light has-divider" data-jarallax data-speed="0.2">
+    <section class="bg-primary-3 text-light has-divider jarallax" data-jarallax data-speed="0.2">
       <div class="divider flip-y">
         <svg width="100%" height="96px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
           <path d="M0,0 C16.6666667,66 33.3333333,99 50,99 C66.6666667,99 83.3333333,66 100,0 L100,100 L0,100 L0,0 Z"></path>
@@ -889,7 +889,7 @@
             <div class="card card-body border-0 o-hidden mb-0 bg-primary text-light">
               <div class="position-relative d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <div class="h3 text-center mb-md-0">Start building beautiful websites</div>
-                <a href="#" class="btn btn-lg btn-white">
+                <a href="{ theme.purchase_link[page.environment] }}" class="btn btn-lg btn-white">
       Purchase Now
     </a>
               </div>
@@ -1111,7 +1111,7 @@
     <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
     <script type="text/javascript" src="assets/js/scrollMonitor.js"></script>
     <!-- Smooth scroll (animation to links in-page)-->
-    <script type="text/javascript" src="assets/js/smooth-scroll.polyfills.js"></script>
+    <script type="text/javascript" src="assets/js/smooth-scroll.polyfills.min.js"></script>
     <!-- TwitterFetcher (displays a feed of tweets from a specified account)-->
     <script type="text/javascript" src="assets/js/twitterFetcher_min.js"></script>
     <!-- Typed text (animated typing effect)-->

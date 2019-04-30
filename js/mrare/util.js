@@ -24,6 +24,9 @@ const mrUtil = (($) => {
   // Activate popovers
   $('body').popover({ selector: '[data-toggle="popover"]', container: 'body' });
 
+  // Activate toasts
+  $('.toast').toast();
+
   const Util = {
 
     version: VERSION,

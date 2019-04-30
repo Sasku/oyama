@@ -24,6 +24,9 @@
   }
   &[data-overlay],&[data-sticky="top"]{
     z-index: (($zindex-dropdown)-1);
+    &.scrolled{
+      z-index: $zindex-tooltip;
+    }
   }
   .dropdown-menu{
     z-index: $zindex-popover;

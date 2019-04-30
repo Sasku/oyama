@@ -7,7 +7,7 @@
 
 import jQuery from 'jquery';
 import scrollMonitor from 'scrollmonitor';
-import CountUp from 'countup.js';
+import { CountUp } from 'countup.js';
 
 const mrCountup = (($) => {
   /**
@@ -90,7 +90,7 @@ const mrCountup = (($) => {
     }
 
     initWatcher(element) {
-      this.CountUp = new CountUp.CountUp(
+      this.CountUp = new CountUp(
         element,
         this.end,
         {
