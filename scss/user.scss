@@ -1,5 +1,47 @@
-// 
-// 
+//
+//
 // user.scss
 //
 // Place your own custom CSS or SCSS rules below this line, these rules will override any Bootstrap and theme variables.
+
+// Fonts
+@font-face {
+  font-family: Brandon_reg;
+  src: url("../fonts/Brandon_reg.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: Brandon_reg;
+  src: url("../fonts/Brandon_bld.otf");
+  font-weight: 900;
+}
+
+// Colors
+$oyama-purple: #865CE2;
+
+
+body {
+  font-family: 'Brandon_reg', sans-serif;
+}
+
+.oyama-bold {
+  font-family: 'Brandon_reg', sans-serif;
+  font-weight: 900;
+
+}
+.oyama_bg {
+  background-image: url("../img/oyama_bg.jpeg");
+}
+
+.extra_padding {
+  margin-top: 200px;
+}
+
+.logo_hax_padding {
+  margin-top: 100px;
+
+}
+
+.extra-padding-bottom {
+  margin-bottom: 200px;
+}

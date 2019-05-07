@@ -97,7 +97,7 @@ getPaths = () => {
       folder: 'scss',
       all: 'scss/**/*',
       root: 'scss/*.scss',
-      themeScss: ['scss/theme.scss', '!scss/user.scss', '!scss/user-variables.scss'],
+      themeScss: ['scss/theme-oyama.scss', 'scss/theme.scss', '!scss/user.scss', '!scss/user-variables.scss'],
     },
     assets: {
       all: 'pages/assets/**/*',
@@ -326,7 +326,8 @@ gulp.task('serve', function (done) {
   browserSync({
     server: {
       baseDir: './dist',
-      index: "index.html"
+      index: "index.html",
+      host: "85.24.193.30"
     }
   });
   done();
