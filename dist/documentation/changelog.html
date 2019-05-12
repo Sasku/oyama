@@ -6,16 +6,12 @@
     <title>Leap Bootstrap Theme and HTML Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A corporate Bootstrap theme by Medium Rare">
-    <link href="../assets/css/loaders/loader-typing.css" rel="stylesheet" type="text/css" media="all" />
     <link href="../assets/css/theme.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="preload" as="font" href="../assets/fonts/Inter-UI-upright.var.woff2" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" as="font" href="../assets/fonts/Inter-UI.var.woff2" type="font/woff2" crossorigin="anonymous">
   </head>
 
   <body data-smooth-scroll-offset="120">
-    <div class="loader">
-      <div class="loading-animation"></div>
-    </div>
 
     <div class="navbar-container ">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary-3" data-sticky="top">
@@ -268,7 +264,7 @@
                               <a
                               class="dropdown-item fade-page" href="../elements-dropdowns-grid.html">Dropdowns Grid</a><a class="dropdown-item fade-page" href="../elements-footers.html">Footers</a><a class="dropdown-item fade-page" href="../elements-navbars.html">Navigation</a><a class="dropdown-item fade-page" href="../elements-tooltips.html">Tooltips</a>
                                 <a
-                                class="dropdown-item fade-page" href="../elements-widgets.html">Widgets</a>
+                                class="dropdown-item fade-page" href="../elements-toasts.html">Toasts</a><a class="dropdown-item fade-page" href="../elements-widgets.html">Widgets</a>
                           </div>
                         </div>
                         <div class="col-lg col-md-4 mb-3 mb-lg-0">
@@ -385,6 +381,18 @@
 
                 <li class="nav-item">
                   <a href="changelog.html" class="nav-link text-small">Changelog </a>
+
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="mb-3 mb-md-4">
+              <h6 class="mb-2">How To</h6>
+              <ul class="nav flex-column">
+
+                <li class="nav-item">
+                  <a href="how-to-edit-color-scheme.html" class="nav-link text-small">Edit Color Scheme </a>
 
                 </li>
 
@@ -711,6 +719,60 @@
                 </div>
               </div>
 
+              <article id="101" class="mb-4 mb-md-6">
+                <h3>
+                  <p><code>1.0.1</code> - 27 March 2019</p>
+                </h3>
+                <div>
+                  <ul>
+                    <li>Fixed icon button alignment
+                      <ul>
+                        <li>Update <code>home-mobile-app.html</code>
+                        </li>
+                        <li>Update <code>home-cryptocurrency.html</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Fixed reload function name bug in <code>gulpfile.js</code> (fixes rangeError on reload)</li>
+                    <li>Fixed Popover moving over top of fixed navigation bar
+                      <ul>
+                        <li>Update <code>navbar.scss</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Fixed mobile bug on Home Desktop App with background image
+                      <ul>
+                        <li>Update <code>home-desktop-app.html</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Fixed handle on slider for newer version of ion rangeSlider
+                      <ul>
+                        <li>Update <code>scss/custom/components/options/ion-rangeslider.scss</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Added color scheme variables to <code>user-variables.scss</code>
+                    </li>
+                    <li>Added &quot;How to Edit Color Scheme&quot; article in documentation</li>
+                    <li>Added link to instructions to install node via nvm to avoid errors during installation
+                      <ul>
+                        <li>Update <code>documentation/index.html</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Added <code>elements-toasts.html</code>
+                    </li>
+                    <li>Added toasts initializer to <code>js/mrare/util.js</code>
+                    </li>
+                    <li>Moved <code>.eslintrc.json</code> config to <code>package.json</code> to remove doubt during installation</li>
+                    <li>Moved <code>.babelrc.js</code> config to <code>gulpfile.js</code> to remove doubt during installation</li>
+                    <li>Updated dependencies</li>
+                  </ul>
+
+                </div>
+              </article>
+
               <article id="100" class="mb-4 mb-md-6">
                 <h3>
                   <p><code>1.0.0</code> - initial release</p>
@@ -724,6 +786,10 @@
             </div>
             <div class="col-xl-2 col-lg-3 d-none d-lg-block py-md-5 docs-sidebar">
               <ul class="nav flex-column">
+
+                <li class="nav-item">
+                  <a href="#101" class="nav-link text-small" data-smooth-scroll>1.0.1</a>
+                </li>
 
                 <li class="nav-item">
                   <a href="#100" class="nav-link text-small" data-smooth-scroll>1.0.0</a>
@@ -769,18 +835,24 @@
     <!-- ScrollMonitor (manages events for elements scrolling in and out of view) -->
     <script type="text/javascript" src="../assets/js/scrollMonitor.js"></script>
     <!-- Smooth scroll (animation to links in-page)-->
-    <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.js"></script>
+    <script type="text/javascript" src="../assets/js/smooth-scroll.polyfills.min.js"></script>
     <!-- TwitterFetcher (displays a feed of tweets from a specified account)-->
     <script type="text/javascript" src="../assets/js/twitterFetcher_min.js"></script>
     <!-- Typed text (animated typing effect)-->
     <script type="text/javascript" src="../assets/js/typed.min.js"></script>
     <!-- Required theme scripts (Do not remove) -->
     <script type="text/javascript" src="../assets/js/theme.js"></script>
-    <!-- Removes page load animation when window is finished loading -->
+    <!-- This script appears only on pages with code examples to provide a copy-to-clipboard functionality. -->
     <script type="text/javascript">
-      window.addEventListener("load", function () {
-        document.querySelector('body').classList.add('loaded');
+      jQuery("pre.language-html, pre.language-javascript").each(function() {
+          var e = '<button class="btn btn-sm btn-primary btn-clipboard" type="button" title="Copy To Clipboard">Copy</button>';
+          var wrap = '<div class="code-snippet">';
+          jQuery(this).wrap(wrap).before(e);
       });
+      jQuery(".btn-clipboard").tooltip().on("mouseleave", function() {
+          jQuery(this).tooltip("hide")
+      });
+      var e = new ClipboardJS(".btn-clipboard",{target:function(e){return e.nextElementSibling}});e.on("success",function(e){jQuery(e.trigger).attr("title","Copied!").tooltip("_fixTitle").tooltip("show").attr("title","Copy to clipboard").tooltip("_fixTitle");e.clearSelection()});e.on("error",function(e){var t=/Mac/i.test(navigator.userAgent)?"⌘":"Ctrl-";var n="Press "+t+"C to copy";jQuery(e.trigger).attr("title",n).tooltip("_fixTitle").tooltip("show").attr("title","Copy to clipboard").tooltip("_fixTitle")});
     </script>
 
   </body>
