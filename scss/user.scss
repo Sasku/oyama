@@ -45,3 +45,21 @@ body {
 .extra-padding-bottom {
   margin-bottom: 200px;
 }
+
+.oyama-card {
+
+
+}
+
+.card {
+
+  @media (min-width: 576px) {
+    .card.card-lg.card-body {
+      padding: 1rem; } }
+
+
+@media (max-width: 767.98px) {
+  .card {
+    margin-bottom: 0.75rem; } }
+
+  }
